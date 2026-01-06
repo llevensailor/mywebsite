@@ -9,13 +9,13 @@ website:
       - text: "Home"
         href: index.html
       - text: "Portfolio"
-            menu: 
-                - text: "Air Pollution"
-                  href: mapping.qmd
-                - text: "College Demographics"
-                  href: scorecard_analysis.qmd
-                - text: "World Cube Association"
-                  href: WCA_analysis.qmd
+        menu: 
+            - text: "Air Pollution"
+              href: mapping.qmd
+            - text: "College Demographics"
+              href: scorecard_analysis.qmd
+            - text: "World Cube Association"
+              href: WCA_analysis.qmd
 format:
   html:
     theme: sandstone, _variables.scss
