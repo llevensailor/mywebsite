@@ -1,0 +1,343 @@
+---
+title: "SDS 192 Project 3"
+subtitle: "Maps"
+author: 
+- name: Danielle Church
+  affiliation: Smith College
+- name: Leah Levensailor
+  affiliation: Smith College
+- name: Zaixiao Rao
+  affiliation: Smith College
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+editor: 
+  mode: source
+output: 
+  html_document:
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+    theme: lumen
+    df_print: paged
+    code_folding: show
+format:
+  html:
+    embed-resources: true
+execute:
+  echo: false
+knitr:
+  opts_chunk: 
+    message: false
+    warning: false
+---
+
+
+
+```{r}
+#| echo: false
+# Include all libraries you may need for your project here. 
+## Make sure you install all packages you don't have!!!
+library(janitor)
+library(sf)
+library(tidycensus)
+library(tidygeocoder)
+library(tidyverse)
+library(leaflet)
+library(rnaturalearth)
+library(wbstats)
+```
+
+```{r helper-chunk}
+#| echo: false
+# If you need to read in csv data do it here. 
+air_quality_index <- read_csv("AQI_data.csv")
+countries <- read_tsv("WCA_data_copy/WCA_export_Countries.tsv")
+continents <- read_tsv("WCA_data_copy/WCA_export_Continents.tsv")
+us_aqi <- read_csv("air-quality-by-state.csv")
+```
+
+```{r analysis-1}
+#| echo: false
+# Danielle Church
+
+## ————————————————————————— CREATING EUROPE MAP ——————————————————————————————
+### Cleaned data tables
+aqi_clean_20220721 <- air_quality_index |>
+  clean_names() |>
+  filter(date == "2022-07-21")
+
+### Loaded world data thanks to https://www.youtube.com/watch?v=KZcKv3HgzII 
+world <- ne_countries(scale = "medium", returnclass = "sf") |>
+  filter(admin != "Antartica") |>
+  st_transform(crs = 4326)
+
+world_aqi <- world |>
+  inner_join(aqi_clean_20220721, by = c("admin" = "country"))
+
+### Found boundary box coordinates using https://www.openstreetmap.org/export#map=3/47.75/7.91
+europe_coord <- st_sfc(st_point(c(-11.25, 35.60)),  # left, bottom
+                       st_point(c(39.20, 70.67)),   # right, top
+                       crs = 4326)
+
+europe_coord_sf <- europe_coord |>
+  st_transform(crs = 4326) |>
+  st_coordinates()
+```
+
+```{r analysis-2}
+#| echo: false
+# Group member 2 work here!
+# Zaixiao Rao
+
+## ————————————————————————— CREATING & USING FUNCTION ——————————————————————————————
+#A function calculating mean, min, max aqi of each continent from 2022 to 2025
+aqi_calc <- function(get_continents) {
+  aqi_data <- air_quality_index|>
+    filter(name.y==get_continents)|>
+    group_by(year)|>
+    summarise(mean_aqi = mean(aqi_value),
+            min_aqi = min(aqi_value),
+            max_aqi = max(aqi_value))
+}
+
+#Join AQI dataset with countries and continents dataset to add continent names
+countries <- countries|>
+  inner_join(continents,
+             by = c("continentId"="id"))
+
+air_quality_index <- air_quality_index|>
+  clean_names()|>
+  inner_join(countries,
+             by = c("country"="id"))|>
+  #add year column
+  mutate(year = str_sub(date, start = 1, end = -7L))
+
+#Get the names of continents
+get_continents <-continents|>
+  pull(var = -3,name = name)
+
+#Iterate the function over the list of continent names 
+aqi_by_continent <-get_continents|>
+  map(aqi_calc)
+
+## ————————————————————————— CREATING ASIA MAP ——————————————————————————————
+#Subset Asia data on 2022-07-21
+aqi_asia_2022<-air_quality_index|>
+  filter(name.y == "Asia",
+         date == "2022-07-21")|>
+  select("country","status","aqi_value","name.y")
+
+#World_map data from: https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us
+world_map<- read_sf("world-administrative-boundaries/world-administrative-boundaries.dbf")
+
+#Filter asia_map data from world_map
+asia_map <-world_map|>
+  filter(continent=="Asia",na.rm = TRUE)|>
+  select("name","continent","region")|>
+  st_transform(crs = 4326)
+
+#Join aqi data of Asia with asia_map
+asia_aqi_map_2022 <- asia_map|>
+  inner_join(aqi_asia_2022,
+          by = c("name"="country"))
+
+```
+
+```{r analysis-3}
+#| echo: false
+# Group member 3 work here!
+#work for americas NOT INCLUDING THE US
+#get just the aqi's for the countries in the americas
+americas_aqi <- air_quality_index|>
+  filter(continentId == "_South America" | continentId == "_North America",
+         date == "2022-07-21") |>
+  select("country","status","aqi_value","name.y")
+
+world_map<- read_sf("world-administrative-boundaries/world-administrative-boundaries.dbf")
+
+#create the americas map using the world map data 
+americas_map <- world_map|>
+  filter(continent=="Americas" ,na.rm = TRUE)|>
+  select("name","continent","region")|>
+  st_transform(crs = 4326)
+
+#join the map and aqi tables into one 
+americas_map_aqi <- americas_map |>
+  inner_join(americas_aqi, 
+             by = c("name"="country"))
+#create the map 
+ggplot() +
+  geom_sf(data = americas_map_aqi, aes(fill = aqi_value)) +
+  xlim(140,30) +
+  labs(
+    title = "The Americas AQI Excluding the US",
+    x = "Latitude",
+    fill = "AQI"
+  ) +
+  theme_void() +
+  theme(axis.text = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank()) +
+  scale_fill_continuous(type = "viridis", direction = -1) 
+
+
+#US WORK
+#clean data
+us_aqi_cleaned <- us_aqi |>
+  clean_names()
+#rename the region collumn so joining is simpler 
+colnames(us_aqi_cleaned)[1] <- "name"
+
+#create the usa_map data table 
+usa_map <- read_sf("us-state-boundaries/us-state-boundaries.dbf")
+
+#join the aqi and map data 
+usa_aqi_map <- usa_map |>
+  inner_join(us_aqi_cleaned, 
+             by = c("name"))
+
+#take out the virgin islands since this is just the states 
+usa_aqi_map <- usa_aqi_map |>
+  filter(!name == "United States Virgin Islands")
+
+#plot the map 
+ggplot() +
+  geom_sf(data = usa_aqi_map, aes(fill = air_quality_index_2019 )) +
+  xlim(200,50) +
+  labs(
+    title = "United States Air Qualitie by State",
+    x = "Latitude",
+    fill = "AQI"
+  ) +
+   theme_void() +
+  theme(axis.text = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank()) +
+  scale_fill_continuous(type = "viridis", direction = -1) 
+```
+
+# Blog Post
+
+## Introduction
+
+Air pollution is a public health concern that countries all around the world need to take into consideration. Each country has a different way of reporting air pollution levels. According to [Wikipedia](https://en.wikipedia.org/wiki/Air_quality_index), the United States Environmental Protection Agency (EPA) created the Air Quality Index (AQI) that is based on the five pollutants: ground-level ozone, particulate matter, carbon monoxide, sulfur dioxide, and nitrogen dioxide. The six levels of public health concerns are pictured below.
+
+![Air Quality Index](https://i.postimg.cc/kgRWWChK/air-quality-index-numerical-scale-vector-24061819.jpg)
+
+Several datasets were used in this project. 
+
+* The dataset containing AQI scores for the United States can be found [here](https://www.datapandas.org/ranking/air-quality-by-state)
+
+* The dataset containing AQI scores for the rest of the world can be found [here](https://www.kaggle.com/datasets/azminetoushikwasi/aqi-air-quality-index-scheduled-daily-update)
+
+* The dataset that Danielle used to map world countries can be found in the `wbstats` package in R. She figured out how to do this thanks to [this video](https://www.youtube.com/watch?v=KZcKv3HgzII) and found the boundary box coordinates using [this site](https://www.openstreetmap.org/export#map=3/47.75/7.91)
+
+* The dataset that Leah used to map world countries were from the datasets from Project 2 and can be found [here](https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)
+
+* The datasets that Zaixiao used to map world countries were the `countries` and `continents` datasets from Project 2 as well as a dataset that can be found [here](https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)
+
+## World AQI Scores
+
+<!-- Write about minimum, maximum, and mean AQI scores of each continent and the world here because we need to include functions in this project -->
+
+## AQI Scores in Asia & Oceania
+
+Referencing map is @fig-asia
+```{r}
+#| label: fig-asia
+#| fig-cap: "Map of AQI Scores in Asia"
+#| echo: false
+
+#Make a map for asia aqi
+ggplot() +
+  geom_sf(data = asia_aqi_map_2022,aes(fill = aqi_value))+
+  scale_fill_continuous(type = "viridis", 
+                        direction = -1) +
+  theme_void() +
+  theme(axis.text = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank()) +
+  labs(fill = "AQI Scores")
+
+```
+
+
+## AQI Scores in Europe
+
+Referencing map in text is @fig-europe
+
+```{r}
+#| label: fig-europe
+#| fig-cap: "Map of AQI Scores in Europe"
+#| echo: false
+
+## Made map of Europe
+ggplot() +
+  geom_sf(data = world_aqi, aes(fill = aqi_value)) +
+  coord_sf(xlim = europe_coord_sf[, "X"], 
+           ylim = europe_coord_sf[, "Y"], 
+           expand = FALSE) +
+  scale_fill_continuous(type = "viridis", 
+                        direction = -1) +
+  theme_void() +
+  theme(axis.text = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank()) +
+  labs(fill = "AQI Scores")
+```
+
+
+## AQI Scores in North and South America
+
+```{r}
+#| label: fig-americas
+#| fig-cap: "Map of AQI Scores in North and South America"
+#| echo: false
+
+
+#the americas 
+
+
+ggplot() +
+  geom_sf(data = americas_map_aqi, aes(fill = aqi_value)) +
+  xlim(140,30) +
+  labs(
+    title = "The Americas AQI Excluding the US",
+    x = "Latitude",
+    fill = "AQI"
+  ) +
+  theme_void() +
+  theme(axis.text = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank()) +
+  scale_fill_continuous(type = "viridis", direction = -1) 
+```
+```{r}
+#| label: fig-us
+#| fig-cap: "Map of AQI Scores in the United States"
+#| echo: false
+# the us 
+ggplot() +
+  geom_sf(data = usa_aqi_map, aes(fill = air_quality_index_2019 )) +
+  xlim(200,50) +
+  labs(
+    title = "United States Air Qualitie by State",
+    x = "Latitude",
+    fill = "AQI"
+  ) +
+   theme_void() +
+  theme(axis.text = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank()) +
+  scale_fill_continuous(type = "viridis", direction = -1) 
+```
+
+North and South America were difficult to make the plots for because the United States was not included in the AQI data for all of the countries in the world that we found. To fix this issue Leah decided to create a separate figure (@fig-us) for the United States, separated by the average AQI of each state. Looking at the individual states first, the trends seem to be the more south west you go, the worse the AQI gets. California has the worst AQI in the United States on average which is due to the constant wildfires and the overpopulation which causes high vehicular emissions. On the flip side, Alaska has one of the best AQI scores on average partially due to the less densely populated areas. The entire country as a whole hovers around the 35 area. Now looking at the countries in North and South America the scale has changed. The range for the AQI for the United States is roughly 20-55, but the range for the America continents is roughly 25-200 so on the national range, the United States would have a relatively low AQI. All of the countries are within the 50-100 range except Chile which has a score of over 200. According to [Un Dispatch](https://undispatch.com/why-does-chile-have-such-bad-air-pollution-and-how-to-fix-it/#:~:text=It%20is%20partly%20a%20matter,dirty%20and%20emit%20harmful%20pollution.), the reason for this is because the majority of people in Chile heat their homes via wood burning which creates a lot of air pollution. 
+
+
+

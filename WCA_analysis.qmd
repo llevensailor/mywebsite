@@ -1,0 +1,142 @@
+---
+title: "SDS 192 Project 2"
+subtitle: "World Cube Association"
+author: 
+- name: Bethany Stephens
+  affiliation: Smith College
+- name: Leah Levensailor
+  affiliation: Smith College
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+editor: 
+  mode: source
+execute:
+  echo: false
+knitr:
+  opts_chunk: 
+    message: false
+    warning: false
+---
+
+
+
+
+
+```{r setup}
+#| include: false
+
+## Load the tidyverse package
+library(tidyverse)
+
+```
+
+```{r}
+#| message: false
+## Loading all the data files
+## DO NOT CHANGE THIS CODE
+championships <- read_tsv("WCA_data/WCA_export_championships.tsv")
+competitions <- read_tsv("WCA_data/WCA_export_Competitions.tsv")
+continents <- read_tsv("WCA_data/WCA_export_Continents.tsv")
+countries <- read_tsv("WCA_data/WCA_export_Countries.tsv")
+eligible_country_iso2s_for_championship <- read_tsv("WCA_data/WCA_export_eligible_country_iso2s_for_championship.tsv")
+events <- read_tsv("WCA_data/WCA_export_Events.tsv")
+formats <- read_tsv("WCA_data/WCA_export_Formats.tsv")
+persons <- read_tsv("WCA_data/WCA_export_Persons.tsv")
+ranksaverage <- read_tsv("WCA_data/WCA_export_RanksAverage_333.tsv")
+rankssingle <- read_tsv("WCA_data/WCA_export_RanksSingle_333.tsv")
+results <- read_tsv("WCA_data/WCA_export_Results_333.tsv")
+roundtypes <- read_tsv("WCA_data/WCA_export_RoundTypes.tsv")
+scrambles <- read_tsv("WCA_data/WCA_export_Scrambles_333.tsv")
+```
+
+# Plot 1
+```{r}
+
+#change to same name
+  countries <- rename(countries, countryId=id) |>
+   select('countryId', 'continentId')
+
+
+#left join persons and countries
+person_continent<-left_join(countries, persons, by='countryId', multiple="all")
+
+#make continent names pretty
+person_continent$continentId <-
+   recode(
+    person_continent$continentId, 
+    "_Asia" = "Asia", 
+    "_Africa" = "Africa", 
+    "_Oceania" = "Oceania",
+    "_Europe"="Europe",
+    "_South America"="South America",
+    "_North America"="North America",
+    .default = NA_character_
+  )
+
+#drop na gender
+person_continent<-person_continent%>% drop_na()
+
+#plot
+ggplot(data = person_continent, 
+       aes(x = continentId,fill=gender)) +
+  geom_bar() +
+  labs(title = "Competitors by Continent",
+       x = "Continent", 
+       y = "# of Competitors",
+       fill="Gender")
+
+```
+
+
+```{r}
+
+#create male only chart by continent
+men_chart <- person_continent |>
+  select(continentId, gender) |>
+  filter(gender == "m") |>
+  group_by(continentId) |>
+  summarize(total_males = n())
+
+#create women only chart by continent 
+women_chart <- person_continent |>
+  select(continentId, gender) |>
+  filter(gender == "f") |>
+  group_by(continentId) |>
+  summarize(total_women = n())
+
+
+#womens pie chart
+pie_chart_women <- ggplot(data = women_chart,
+       aes(x = "", y = total_women, fill = continentId)) +
+   geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start = 0) +
+  scale_fill_brewer(palette = "Blues") +
+  labs(x = "", y = "Total Females", fill = "Continent", title = "Total Females by Continent")
+  
+pie_chart_women
+#males pie chart 
+pie_chart_men <- ggplot(data = men_chart,
+       aes(x = "", y = total_males, fill = continentId)) +
+   geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start = 0) +
+  scale_fill_brewer(palette = "Reds") +
+  labs(x = "", y = "Total Males", fill = "Continent", title = "Total Males by Continent")
+pie_chart_men
+
+
+
+
+```
+
+
+# Blog Post
+
+
+The dataset we are working with contains information about Rubik’s Cube competitions from across the world. These data were recorded and published by the World Cube Association. The data includes information about the location of the competitions, the ranks of the competitors at different levels, the home countries of the competitors, and the gender of the competitors. We were specifically looking at competitions using a standard 3 by 3 Rubik’s Cube. We were interested in exploring the breakdown of gender for competitors from each continent, and the total number of competitors from each continent.
+Originally, we attempted to look at a breakdown of competitors by country, but these data contain information about competitors from so many countries that it became difficult to look at in a graph form. Thus, we decided to change our question to look at gender by continent instead. This required some data wrangling to match each country to its corresponding continent. The wrangling resulted in a bar graph showing the breakdown of competitors for each continent, colored based on gender. Asia had the most competitors (over 80,000), then North America, then Europe, then South America, then Oceania, and finally Africa (under 5,000). From the bar graph it was immediately apparent that there were more male competitors than female competitors. This was true for each continent. We then decided to display the data in another way, so we made two pie charts. The first pie chart shows the breakdown of which continent the female competitors came from (in blues). The second pie chart shows the breakdown of which continent different male competitors came from (in reds).
+Key takeaways from our data wrangling and plotting show that across all continents more male competitors attend Rubik’s competitions, and more competitors come from Asia than any other continent, both male and female. When we join datasets we need to consider what new information can be gleaned from combining the data. For example, if we have one dataset with people’s names and how much money they spend on milk, and another set with people’s names and addresses, combining those datasets could lead to targeted ad campaigns, which would not be possible with either one of the datasets by itself. In the case of this dataset, you could use the date and address of the competitions, combined with the names of the competitors attending to find where and when a person was in a location – which could potentially be an invasion of privacy.
+
+
+
+
+
+
