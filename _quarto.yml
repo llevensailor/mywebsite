@@ -5,7 +5,7 @@ project:
 website:
   title: "Leah Levensailor"
   navbar:
-    right:
+    left:
       - text: "Home"
         href: index.html
       - text: "Portfolio"
