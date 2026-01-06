@@ -1,12 +1,7 @@
 ---
-title: "SDS 192 Project 3"
-subtitle: "Maps"
+title: "Air Pollution"
 author: 
-- name: Danielle Church
-  affiliation: Smith College
 - name: Leah Levensailor
-  affiliation: Smith College
-- name: Zaixiao Rao
   affiliation: Smith College
 date: "`r format(Sys.Date(), '%B %e, %Y')`"
 editor: 
@@ -16,7 +11,6 @@ output:
     fig_width: 7
     fig_height: 6
     fig_caption: true
-    theme: lumen
     df_print: paged
     code_folding: show
 format:
@@ -217,7 +211,6 @@ ggplot() +
   scale_fill_continuous(type = "viridis", direction = -1) 
 ```
 
-# Blog Post
 
 ## Introduction
 

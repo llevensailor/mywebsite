@@ -30,35 +30,35 @@
   {
     "objectID": "mapping.html#introduction",
     "href": "mapping.html#introduction",
-    "title": "SDS 192 Project 3",
+    "title": "Air Pollution",
     "section": "Introduction",
     "text": "Introduction\nAir pollution is a public health concern that countries all around the world need to take into consideration. Each country has a different way of reporting air pollution levels. According to Wikipedia, the United States Environmental Protection Agency (EPA) created the Air Quality Index (AQI) that is based on the five pollutants: ground-level ozone, particulate matter, carbon monoxide, sulfur dioxide, and nitrogen dioxide. The six levels of public health concerns are pictured below.\n\n\n\nAir Quality Index\n\n\nSeveral datasets were used in this project.\n\nThe dataset containing AQI scores for the United States can be found here\nThe dataset containing AQI scores for the rest of the world can be found here\nThe dataset that Danielle used to map world countries can be found in the wbstats package in R. She figured out how to do this thanks to this video and found the boundary box coordinates using this site\nThe dataset that Leah used to map world countries were from the datasets from Project 2 and can be found here\nThe datasets that Zaixiao used to map world countries were the countries and continents datasets from Project 2 as well as a dataset that can be found here"
   },
   {
     "objectID": "mapping.html#world-aqi-scores",
     "href": "mapping.html#world-aqi-scores",
-    "title": "SDS 192 Project 3",
+    "title": "Air Pollution",
     "section": "World AQI Scores",
     "text": "World AQI Scores"
   },
   {
     "objectID": "mapping.html#aqi-scores-in-asia-oceania",
     "href": "mapping.html#aqi-scores-in-asia-oceania",
-    "title": "SDS 192 Project 3",
+    "title": "Air Pollution",
     "section": "AQI Scores in Asia & Oceania",
     "text": "AQI Scores in Asia & Oceania\nReferencing map is Figure 1\n\n\n\n\n\n\n\n\nFigure 1: Map of AQI Scores in Asia"
   },
   {
     "objectID": "mapping.html#aqi-scores-in-europe",
     "href": "mapping.html#aqi-scores-in-europe",
-    "title": "SDS 192 Project 3",
+    "title": "Air Pollution",
     "section": "AQI Scores in Europe",
     "text": "AQI Scores in Europe\nReferencing map in text is Figure 2\n\n\n\n\n\n\n\n\nFigure 2: Map of AQI Scores in Europe"
   },
   {
     "objectID": "mapping.html#aqi-scores-in-north-and-south-america",
     "href": "mapping.html#aqi-scores-in-north-and-south-america",
-    "title": "SDS 192 Project 3",
+    "title": "Air Pollution",
     "section": "AQI Scores in North and South America",
     "text": "AQI Scores in North and South America\n\n\n\n\n\n\n\n\nFigure 3: Map of AQI Scores in North and South America\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 4: Map of AQI Scores in the United States\n\n\n\n\n\nNorth and South America were difficult to make the plots for because the United States was not included in the AQI data for all of the countries in the world that we found. To fix this issue Leah decided to create a separate figure (Figure 4) for the United States, separated by the average AQI of each state. Looking at the individual states first, the trends seem to be the more south west you go, the worse the AQI gets. California has the worst AQI in the United States on average which is due to the constant wildfires and the overpopulation which causes high vehicular emissions. On the flip side, Alaska has one of the best AQI scores on average partially due to the less densely populated areas. The entire country as a whole hovers around the 35 area. Now looking at the countries in North and South America the scale has changed. The range for the AQI for the United States is roughly 20-55, but the range for the America continents is roughly 25-200 so on the national range, the United States would have a relatively low AQI. All of the countries are within the 50-100 range except Chile which has a score of over 200. According to Un Dispatch, the reason for this is because the majority of people in Chile heat their homes via wood burning which creates a lot of air pollution."
   },
