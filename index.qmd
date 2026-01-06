@@ -1,5 +1,5 @@
 ---
-title: "About Me"
+title: "Contact"
 about:
   id: me
   template: trestles
@@ -8,13 +8,30 @@ about:
 
 :::{#me}
 
+I am currently studying at Smith College with a double major in [Computer Science](https://www.smith.edu/academics/computer-science) and [Statisical Data Science](https://www.smith.edu/academics/statistical-data-sciences). 
 
-## Goals
 
 ## Education
 
-## Experience
+-   BA in Computer Science and Statistical Data Science (\~2028)\
+    [Smith College](https://www.smith.edu/)\
+    Northampton, Massachusetts
+
+## Related Courses
+
+-   SDS 192: Intro to Data Science
+-   SDS 100: Lab Computing with Data 
+-   CSC 120: Object Oriented Programming
+-   CSC 210: Data Structures
+-   CSC 231: Microprocessors and Assembly Language 
+-   SDS 291: Multiple Regression
+-   SDS 290: Research Design and Analysis 
+-   SDS 235: Visual Analytics
+-   CSC 240: Computer Graphics
+-   CSC 250: Theoretical Foundations
+
 
 :::
 
-Thanks for checking out my web site!
+email: leahlevi1018@gmail.com
+student email: llevensailor@smith.edu
