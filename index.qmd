@@ -2,7 +2,7 @@
 title: "About Me"
 about:
   id: me
-  template: trestles
+  template: broadside
   image: img/cover_picture copy.jpeg
 ---
 
