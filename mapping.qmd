@@ -224,11 +224,7 @@ Several datasets were used in this project.
 
 * The dataset containing AQI scores for the rest of the world can be found [here](https://www.kaggle.com/datasets/azminetoushikwasi/aqi-air-quality-index-scheduled-daily-update)
 
-* The dataset that Danielle used to map world countries can be found in the `wbstats` package in R. She figured out how to do this thanks to [this video](https://www.youtube.com/watch?v=KZcKv3HgzII) and found the boundary box coordinates using [this site](https://www.openstreetmap.org/export#map=3/47.75/7.91)
 
-* The dataset that Leah used to map world countries were from the datasets from Project 2 and can be found [here](https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)
-
-* The datasets that Zaixiao used to map world countries were the `countries` and `continents` datasets from Project 2 as well as a dataset that can be found [here](https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)
 
 ## World AQI Scores
 
