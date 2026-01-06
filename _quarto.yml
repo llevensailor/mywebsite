@@ -8,7 +8,7 @@ website:
     right:
       - text: "Home"
         href: index.html
-      - text: "Projects"
+      - text: "Portfolio"
         menu: 
           - text: "Air Pollution"
             href: mapping.qmd
