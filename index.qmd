@@ -2,9 +2,8 @@
 title: "About Me"
 about:
   id: me
-  template: broadside
+  template: trestles
   image: img/cover_picture copy.jpeg
-        crop_size: [400, 600]
 ---
 
 :::{#me}

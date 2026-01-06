@@ -1,33 +1,5 @@
 [
   {
-    "objectID": "projects.html#project-2",
-    "href": "projects.html#project-2",
-    "title": "Projects",
-    "section": "Project 2",
-    "text": "Project 2"
-  },
-  {
-    "objectID": "projects.html#project-3",
-    "href": "projects.html#project-3",
-    "title": "Projects",
-    "section": "Project 3",
-    "text": "Project 3"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "About Me",
-    "section": "",
-    "text": "Thanks for checking out my web site!"
-  },
-  {
-    "objectID": "WCA_analysis.html",
-    "href": "WCA_analysis.html",
-    "title": "World Cube Association",
-    "section": "",
-    "text": "Plot 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBlog Post\nThe dataset we are working with contains information about Rubik’s Cube competitions from across the world. These data were recorded and published by the World Cube Association. The data includes information about the location of the competitions, the ranks of the competitors at different levels, the home countries of the competitors, and the gender of the competitors. We were specifically looking at competitions using a standard 3 by 3 Rubik’s Cube. We were interested in exploring the breakdown of gender for competitors from each continent, and the total number of competitors from each continent. Originally, we attempted to look at a breakdown of competitors by country, but these data contain information about competitors from so many countries that it became difficult to look at in a graph form. Thus, we decided to change our question to look at gender by continent instead. This required some data wrangling to match each country to its corresponding continent. The wrangling resulted in a bar graph showing the breakdown of competitors for each continent, colored based on gender. Asia had the most competitors (over 80,000), then North America, then Europe, then South America, then Oceania, and finally Africa (under 5,000). From the bar graph it was immediately apparent that there were more male competitors than female competitors. This was true for each continent. We then decided to display the data in another way, so we made two pie charts. The first pie chart shows the breakdown of which continent the female competitors came from (in blues). The second pie chart shows the breakdown of which continent different male competitors came from (in reds). Key takeaways from our data wrangling and plotting show that across all continents more male competitors attend Rubik’s competitions, and more competitors come from Asia than any other continent, both male and female. When we join datasets we need to consider what new information can be gleaned from combining the data. For example, if we have one dataset with people’s names and how much money they spend on milk, and another set with people’s names and addresses, combining those datasets could lead to targeted ad campaigns, which would not be possible with either one of the datasets by itself. In the case of this dataset, you could use the date and address of the competitions, combined with the names of the competitors attending to find where and when a person was in a location – which could potentially be an invasion of privacy."
-  },
-  {
     "objectID": "mapping.html#introduction",
     "href": "mapping.html#introduction",
     "title": "Air Pollution",
@@ -63,32 +35,18 @@
     "text": "AQI Scores in North and South America\n\n\n\n\n\n\n\n\nFigure 3: Map of AQI Scores in North and South America\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 4: Map of AQI Scores in the United States\n\n\n\n\n\nNorth and South America were difficult to make the plots for because the United States was not included in the AQI data for all of the countries in the world that we found. To fix this issue Leah decided to create a separate figure (Figure 4) for the United States, separated by the average AQI of each state. Looking at the individual states first, the trends seem to be the more south west you go, the worse the AQI gets. California has the worst AQI in the United States on average which is due to the constant wildfires and the overpopulation which causes high vehicular emissions. On the flip side, Alaska has one of the best AQI scores on average partially due to the less densely populated areas. The entire country as a whole hovers around the 35 area. Now looking at the countries in North and South America the scale has changed. The range for the AQI for the United States is roughly 20-55, but the range for the America continents is roughly 25-200 so on the national range, the United States would have a relatively low AQI. All of the countries are within the 50-100 range except Chile which has a score of over 200. According to Un Dispatch, the reason for this is because the majority of people in Chile heat their homes via wood burning which creates a lot of air pollution."
   },
   {
-    "objectID": "scorecard_analysis.html",
-    "href": "scorecard_analysis.html",
-    "title": "College Statistics",
-    "section": "",
-    "text": "Plot 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBlog post\nThe data we are working with for our research and findings is the College Scorecard Institution-Level Data. This dataset provides information about institutions as a whole and also specific fields of study in the United States. This data was produced by federal reports by institutions, financial aid data, and tax data. Specifically, we are focusing on post secondary institutions in Massachusetts in 2021. Our guiding question is in Massachusetts in 2021, are private, non profit, or public schools thriving in terms of student popularity? To investigate this broad topic, we look at the data from private, non profit, and public post secondary schools data including their number of undergraduate students and their admissions rate.\nOur first plot looks at the relationship between average number of students and type of institution. The graph is split into three separate bars for each institution type: public, private non-profit, and private for-profit. We can conclude from this graph that typically the public institutions in Massachusetts have a higher number of students with an average of 3480 students per institution. The outlier is the Private For-Profit average number of students with 151 students. This number is brought down by the smaller specialized schools such as Empire Beauty School-Boston with only 87 people in the undergraduate population. The public universities in this graph don’t show a great discrepancy between the public and private non-profit institutions but in reality, there is such a large gap between the largest and smallest number of students in all of the public universities. The average is brought down by all of the smaller public schools. Our second plot looks at the relationship between admissions rate and number of undergraduate students, colored by the status of private, non profit, and public institutions. From this graph, we observe that for public institutions, the vast majority have a very high admission rate but hover around an average number of undergraduate students enrolled. This implies that public colleges/universities are relatively popular, as they admit a large number of students while having an average number of undergraduates enrolled. For private institutions, they are evenly spread along the admission rate, while remaining comparable numbers of undergraduate enrollment. We conclude from this information that since these colleges and universities have a similar number of undergraduates as public institutions, but often lower admission rates, they are more popular than public institutions.\nThe key takeaway from our analysis is that public institutions have larger student populations than private or nonprofit institutions, indicating a level of popularity, but have higher admission rates, indicating a possibility of less popularity in terms of applicant pool. The data collected for this dataset is those institutions that receive federal funding. The institutions collect their own data, and may have different ways of doing so, possibly leading to different reports and non-standardized data collection. This data also provides financial information in terms of the institution to families and applicants, but not the culture or surroundings of the college itself, including city or town living expenses."
+    "objectID": "projects.html#project-2",
+    "href": "projects.html#project-2",
+    "title": "Projects",
+    "section": "Project 2",
+    "text": "Project 2"
   },
   {
-    "objectID": "data_for_mapping.html",
-    "href": "data_for_mapping.html",
-    "title": "Ideas for Mapping Data",
-    "section": "",
-    "text": "There is a lot of data in the world, pick a set that you are comfortable with by the end of the first project day. You can go down a rabbit hole after the semester is over."
-  },
-  {
-    "objectID": "data_for_mapping.html#caution",
-    "href": "data_for_mapping.html#caution",
-    "title": "Ideas for Mapping Data",
-    "section": "",
-    "text": "There is a lot of data in the world, pick a set that you are comfortable with by the end of the first project day. You can go down a rabbit hole after the semester is over."
-  },
-  {
-    "objectID": "data_for_mapping.html#map-data-ideas-for-project-3",
-    "href": "data_for_mapping.html#map-data-ideas-for-project-3",
-    "title": "Ideas for Mapping Data",
-    "section": "Map data ideas for project 3",
-    "text": "Map data ideas for project 3\n\nEPA Toxic Release Inventory (TRI)\nhttps://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present\n\n\nCDC Flu View Interactive.\nhttps://gis.cdc.gov/grasp/fluview/fluportaldashboard.html\n\n\nMassachusetts GIS Data\nhttps://www.mass.gov/info-details/massgis-data-layers\nOther states also have GIS Data\n\n\nSearch Geo Spatial Analysis on Kaggle\nhttps://www.kaggle.com/datasets?sort=usability&tags=13206-Geospatial+Analysis\n(Sort by usability)"
+    "objectID": "projects.html#project-3",
+    "href": "projects.html#project-3",
+    "title": "Projects",
+    "section": "Project 3",
+    "text": "Project 3"
   },
   {
     "objectID": "WCA_data/WAC_README.html",
@@ -138,5 +96,47 @@
     "title": "World Cube Association – Results Database Export",
     "section": "",
     "text": "The database export consists of these tables:\n\n\n\n\n\n\n\nTable\nContents\n\n\n\n\nPersons\nWCA competitors\n\n\nCompetitions\nWCA competitions\n\n\nEvents\nWCA events (3x3x3 Cube, Megaminx, etc)\n\n\nResults\nWCA results per competition+event+round+person\n\n\nRanksSingle\nBest single result per competitor+event and ranks\n\n\nRanksAverage\nBest average result per competitor+event and ranks\n\n\nRoundTypes\nThe round types (first, final, etc)\n\n\nFormats\nThe round formats (best of 3, average of 5, etc)\n\n\nCountries\nCountries\n\n\nContinents\nContinents\n\n\nScrambles\nScrambles\n\n\nchampionships\nChampionship competitions\n\n\neligible_country_iso2s_for_championship\nSee explanation below\n\n\n\nMost of the tables should be self-explanatory, but here are a few specific details:\n\n\nCountries stores include those from the Wikipedia list of countries at http://en.wikipedia.org/wiki/List_of_countries, and may include some countries that no longer exist. The ISO2 column should reflect ISO 3166-1 alpha-2 country codes, for countries that have them. Custom codes may be used in some circumstances.\n\n\n\nScrambles stores all scrambles.\nFor 333mbf, an attempt is comprised of multiple newline-separated scrambles. However, newlines can cause compatibility issues with TSV parsers. Therefore, in the TSV version of the data we replace each newline in a 333mbf scramble with the | character.\n\n\n\neligible_country_iso2s_for_championship stores information about which citizenships are eligible to win special cross-country championship types.\nFor example, greater_china is a special championship type which contains 4 iso2 values: CN, HK, MC and TW. This means that any competitor from China, Hong Kong, Macau, or Taiwan is eligible to win a competition with championship type greater_china.\n\n\n\nPlease see https://www.worldcubeassociation.org/regulations/#article-9-events for information about how results are measured.\nValues of the Results table can be interpreted as follows:\n\nThe result values are in the following fields value1, value2, value3, value4, value5, best, and average.\nThe value -1 means DNF (Did Not Finish).\nThe value -2 means DNS (Did Not Start).\nThe value 0 means “no result”. For example a result in a best-of-3 round has a value of 0 for the value4, value5, and average fields.\nPositive values depend on the event; see the column “format” in Events.\n\nMost events have the format “time”, where the value represents centiseconds. For example, 8653 means 1 minute and 26.53 seconds.\nThe format “number” means the value is a raw number, currently only used by “fewest moves” for number of moves.\n\nFewest moves averages are stored as 100 times the average, rounded.\n\nThe format “multi” is for old and new multi-blind, encoding the time as well as the number of cubes attempted and solved. This is a decimal value, which can be interpreted (“decoded”) as follows:\nold: 1SSAATTTTT\n     solved        = 99 - SS\n     attempted     = AA\n     timeInSeconds = TTTTT (99999 means unknown)\nnew: 0DDTTTTTMM\n     difference    = 99 - DD\n     timeInSeconds = TTTTT (99999 means unknown)\n     missed        = MM\n     solved        = difference + missed\n     attempted     = solved + missed\nIn order to encode data, use the following procedure:\n     solved        = # cubes solved\n     attempted     = # cubes attempted\n     missed        = # cubes missed = attempted - solved\n     DD            = 99 - (solved - missed)\n     TTTTT         = solve time in seconds\n     MM            = missed\nNote that this is designed so that a smaller decimal value means a better result. This format does not support more than 99 attempted cubes, or times greater than 99999 seconds (about 27.7 hours)."
+  },
+  {
+    "objectID": "data_for_mapping.html",
+    "href": "data_for_mapping.html",
+    "title": "Ideas for Mapping Data",
+    "section": "",
+    "text": "There is a lot of data in the world, pick a set that you are comfortable with by the end of the first project day. You can go down a rabbit hole after the semester is over."
+  },
+  {
+    "objectID": "data_for_mapping.html#caution",
+    "href": "data_for_mapping.html#caution",
+    "title": "Ideas for Mapping Data",
+    "section": "",
+    "text": "There is a lot of data in the world, pick a set that you are comfortable with by the end of the first project day. You can go down a rabbit hole after the semester is over."
+  },
+  {
+    "objectID": "data_for_mapping.html#map-data-ideas-for-project-3",
+    "href": "data_for_mapping.html#map-data-ideas-for-project-3",
+    "title": "Ideas for Mapping Data",
+    "section": "Map data ideas for project 3",
+    "text": "Map data ideas for project 3\n\nEPA Toxic Release Inventory (TRI)\nhttps://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present\n\n\nCDC Flu View Interactive.\nhttps://gis.cdc.gov/grasp/fluview/fluportaldashboard.html\n\n\nMassachusetts GIS Data\nhttps://www.mass.gov/info-details/massgis-data-layers\nOther states also have GIS Data\n\n\nSearch Geo Spatial Analysis on Kaggle\nhttps://www.kaggle.com/datasets?sort=usability&tags=13206-Geospatial+Analysis\n(Sort by usability)"
+  },
+  {
+    "objectID": "scorecard_analysis.html",
+    "href": "scorecard_analysis.html",
+    "title": "College Statistics",
+    "section": "",
+    "text": "Plot 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBlog post\nThe data we are working with for our research and findings is the College Scorecard Institution-Level Data. This dataset provides information about institutions as a whole and also specific fields of study in the United States. This data was produced by federal reports by institutions, financial aid data, and tax data. Specifically, we are focusing on post secondary institutions in Massachusetts in 2021. Our guiding question is in Massachusetts in 2021, are private, non profit, or public schools thriving in terms of student popularity? To investigate this broad topic, we look at the data from private, non profit, and public post secondary schools data including their number of undergraduate students and their admissions rate.\nOur first plot looks at the relationship between average number of students and type of institution. The graph is split into three separate bars for each institution type: public, private non-profit, and private for-profit. We can conclude from this graph that typically the public institutions in Massachusetts have a higher number of students with an average of 3480 students per institution. The outlier is the Private For-Profit average number of students with 151 students. This number is brought down by the smaller specialized schools such as Empire Beauty School-Boston with only 87 people in the undergraduate population. The public universities in this graph don’t show a great discrepancy between the public and private non-profit institutions but in reality, there is such a large gap between the largest and smallest number of students in all of the public universities. The average is brought down by all of the smaller public schools. Our second plot looks at the relationship between admissions rate and number of undergraduate students, colored by the status of private, non profit, and public institutions. From this graph, we observe that for public institutions, the vast majority have a very high admission rate but hover around an average number of undergraduate students enrolled. This implies that public colleges/universities are relatively popular, as they admit a large number of students while having an average number of undergraduates enrolled. For private institutions, they are evenly spread along the admission rate, while remaining comparable numbers of undergraduate enrollment. We conclude from this information that since these colleges and universities have a similar number of undergraduates as public institutions, but often lower admission rates, they are more popular than public institutions.\nThe key takeaway from our analysis is that public institutions have larger student populations than private or nonprofit institutions, indicating a level of popularity, but have higher admission rates, indicating a possibility of less popularity in terms of applicant pool. The data collected for this dataset is those institutions that receive federal funding. The institutions collect their own data, and may have different ways of doing so, possibly leading to different reports and non-standardized data collection. This data also provides financial information in terms of the institution to families and applicants, but not the culture or surroundings of the college itself, including city or town living expenses."
+  },
+  {
+    "objectID": "WCA_analysis.html",
+    "href": "WCA_analysis.html",
+    "title": "World Cube Association",
+    "section": "",
+    "text": "Plot 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBlog Post\nThe dataset we are working with contains information about Rubik’s Cube competitions from across the world. These data were recorded and published by the World Cube Association. The data includes information about the location of the competitions, the ranks of the competitors at different levels, the home countries of the competitors, and the gender of the competitors. We were specifically looking at competitions using a standard 3 by 3 Rubik’s Cube. We were interested in exploring the breakdown of gender for competitors from each continent, and the total number of competitors from each continent. Originally, we attempted to look at a breakdown of competitors by country, but these data contain information about competitors from so many countries that it became difficult to look at in a graph form. Thus, we decided to change our question to look at gender by continent instead. This required some data wrangling to match each country to its corresponding continent. The wrangling resulted in a bar graph showing the breakdown of competitors for each continent, colored based on gender. Asia had the most competitors (over 80,000), then North America, then Europe, then South America, then Oceania, and finally Africa (under 5,000). From the bar graph it was immediately apparent that there were more male competitors than female competitors. This was true for each continent. We then decided to display the data in another way, so we made two pie charts. The first pie chart shows the breakdown of which continent the female competitors came from (in blues). The second pie chart shows the breakdown of which continent different male competitors came from (in reds). Key takeaways from our data wrangling and plotting show that across all continents more male competitors attend Rubik’s competitions, and more competitors come from Asia than any other continent, both male and female. When we join datasets we need to consider what new information can be gleaned from combining the data. For example, if we have one dataset with people’s names and how much money they spend on milk, and another set with people’s names and addresses, combining those datasets could lead to targeted ad campaigns, which would not be possible with either one of the datasets by itself. In the case of this dataset, you could use the date and address of the competitions, combined with the names of the competitors attending to find where and when a person was in a location – which could potentially be an invasion of privacy."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "About Me",
+    "section": "",
+    "text": "Thanks for checking out my web site!"
   }
 ]
