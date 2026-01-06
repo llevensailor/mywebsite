@@ -1,9 +1,6 @@
 ---
-title: "SDS 192 Project 2"
-subtitle: "World Cube Association"
+title: "World Cube Association"
 author: 
-- name: Bethany Stephens
-  affiliation: Smith College
 - name: Leah Levensailor
   affiliation: Smith College
 date: "`r format(Sys.Date(), '%B %e, %Y')`"

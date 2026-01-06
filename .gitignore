@@ -8,3 +8,5 @@ WCA_data_copy
 us-state-boundaries
 air-quality-by-state.csv
 AQI_data.csv
+
+/.quarto/

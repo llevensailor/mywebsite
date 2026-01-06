@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Leah Levensailor">
+<meta name="dcterms.date" content="2026-01-05">
 
-<title>Projects – MY WEB SITE</title>
+<title>World Cube Association – MY WEB SITE</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -92,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./projects.html" aria-current="page"> 
+    <a class="nav-link" href="./projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
 </ul>
@@ -113,9 +115,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-1" id="toc-project-1" class="nav-link active" data-scroll-target="#project-1">Project 1</a></li>
-  <li><a href="#project-2" id="toc-project-2" class="nav-link" data-scroll-target="#project-2">Project 2</a></li>
-  <li><a href="#project-3" id="toc-project-3" class="nav-link" data-scroll-target="#project-3">Project 3</a></li>
+  <li><a href="#plot-1" id="toc-plot-1" class="nav-link active" data-scroll-target="#plot-1">Plot 1</a></li>
+  <li><a href="#blog-post" id="toc-blog-post" class="nav-link" data-scroll-target="#blog-post">Blog Post</a></li>
   </ul>
 </nav>
     </div>
@@ -124,14 +125,33 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects</h1>
+<h1 class="title">World Cube Association</h1>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Leah Levensailor </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Smith College
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 5, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -141,14 +161,37 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="project-1" class="level2">
-<h2 class="anchored" data-anchor-id="project-1">Project 1</h2>
+<section id="plot-1" class="level1">
+<h1>Plot 1</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="WCA_analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="WCA_analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="WCA_analysis_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="project-2" class="level2">
-<h2 class="anchored" data-anchor-id="project-2">Project 2</h2>
-</section>
-<section id="project-3" class="level2">
-<h2 class="anchored" data-anchor-id="project-3">Project 3</h2>
+<section id="blog-post" class="level1">
+<h1>Blog Post</h1>
+<p>The dataset we are working with contains information about Rubik’s Cube competitions from across the world. These data were recorded and published by the World Cube Association. The data includes information about the location of the competitions, the ranks of the competitors at different levels, the home countries of the competitors, and the gender of the competitors. We were specifically looking at competitions using a standard 3 by 3 Rubik’s Cube. We were interested in exploring the breakdown of gender for competitors from each continent, and the total number of competitors from each continent. Originally, we attempted to look at a breakdown of competitors by country, but these data contain information about competitors from so many countries that it became difficult to look at in a graph form. Thus, we decided to change our question to look at gender by continent instead. This required some data wrangling to match each country to its corresponding continent. The wrangling resulted in a bar graph showing the breakdown of competitors for each continent, colored based on gender. Asia had the most competitors (over 80,000), then North America, then Europe, then South America, then Oceania, and finally Africa (under 5,000). From the bar graph it was immediately apparent that there were more male competitors than female competitors. This was true for each continent. We then decided to display the data in another way, so we made two pie charts. The first pie chart shows the breakdown of which continent the female competitors came from (in blues). The second pie chart shows the breakdown of which continent different male competitors came from (in reds). Key takeaways from our data wrangling and plotting show that across all continents more male competitors attend Rubik’s competitions, and more competitors come from Asia than any other continent, both male and female. When we join datasets we need to consider what new information can be gleaned from combining the data. For example, if we have one dataset with people’s names and how much money they spend on milk, and another set with people’s names and addresses, combining those datasets could lead to targeted ad campaigns, which would not be possible with either one of the datasets by itself. In the case of this dataset, you could use the date and address of the competitions, combined with the names of the competitors attending to find where and when a person was in a location – which could potentially be an invasion of privacy.</p>
 
 
 </section>
