@@ -18,7 +18,7 @@ website:
             href: WCA_analysis.qmd
 format:
   html:
-    theme: [sandstone, _variables.scss]
+    theme: sandstone, _variables.scss
     css: styles.css
 page-footer:
     right: "Built with [Quarto](https://quarto.org/)"
