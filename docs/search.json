@@ -135,8 +135,22 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "About Me",
+    "title": "Contact",
     "section": "",
-    "text": "Thanks for checking out my web site!"
+    "text": "I am currently studying at Smith College with a double major in Computer Science and Statisical Data Science.\n\n\n\nBA in Computer Science and Statistical Data Science (~2028)\nSmith College\nNorthampton, Massachusetts\n\n\n\n\n\nSDS 192: Intro to Data Science\nSDS 100: Lab Computing with Data\nCSC 120: Object Oriented Programming\nCSC 210: Data Structures\nCSC 231: Microprocessors and Assembly Language\nSDS 291: Multiple Regression\nSDS 290: Research Design and Analysis\nSDS 235: Visual Analytics\nCSC 240: Computer Graphics\nCSC 250: Theoretical Foundations\nemail: leahlevi1018@gmail.com student email: llevensailor@smith.edu"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Contact",
+    "section": "",
+    "text": "BA in Computer Science and Statistical Data Science (~2028)\nSmith College\nNorthampton, Massachusetts"
+  },
+  {
+    "objectID": "index.html#related-courses",
+    "href": "index.html#related-courses",
+    "title": "Contact",
+    "section": "",
+    "text": "SDS 192: Intro to Data Science\nSDS 100: Lab Computing with Data\nCSC 120: Object Oriented Programming\nCSC 210: Data Structures\nCSC 231: Microprocessors and Assembly Language\nSDS 291: Multiple Regression\nSDS 290: Research Design and Analysis\nSDS 235: Visual Analytics\nCSC 240: Computer Graphics\nCSC 250: Theoretical Foundations"
   }
 ]
