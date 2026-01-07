@@ -1,0 +1,239 @@
+---
+title: "Racial Inequality in Wages"
+subtitle: "Case Study 2" 
+author:
+  - name: "Leah Levensailor"
+date: 2025-11-16
+format:
+  html:
+    embed-resources: true
+execute: 
+  echo: true
+  message: false
+  warning: false
+---
+# Introduction to the Problem
+
+A persistent racial disparity within the American labor market is the wage gap between Black and white individuals. This study analyses data from 25,631 male respondents in the March 1988 Current Population Survey (CPS), examining whether Black men continue to earn less than non-Black men with comparable qualifications after controlling for factors such as years of education, work experience, and region.
+
+The United States Census Bureau hypothesizes that wage disparities among Black workers may vary by region. This study will:
+
+1.  Establish a model that allows racial effects to vary across regions while adjusting the influence of education and work experience;
+2.  Estimate the wage gap between Black and non-Black workers in each region;
+3.  Conduct hypothesis tests to determine whether these regional wage gaps are statistically significant;
+4.  Ultimately answer whether Black men indeed earn less after controlling for region, education, and work experience.
+
+# Data Description
+
+We use a dataset from the CPS, which includes the following variables:
+
+1.  Wage: Weekly earnings
+2.  Education: Years of schooling
+3.  Experience: Years of work experience
+4.  Black: Black or African American (1=Yes, 0=No)
+5.  SMSA: Residing in a Standard Metropolitan Statistical Area (i.e., city or vicinity)
+6.  Region: Region (NE=Northeast, MW=Midwest, S=South, W=West)
+
+```{r}
+# Load necessary packages
+library(tidyverse)
+library(broom)
+library(kableExtra)
+library(ggplot2)
+library(patchwork)
+```
+
+```{r}
+# Load data set
+wages <- Sleuth2::ex1029
+
+# Represent indicator variables and set reference levels
+wages <- wages|>
+  mutate(Region = factor(Region)) |>
+  mutate(Region = relevel(Region, ref="MW"))
+levels(wages$Region)
+
+wages <- wages|>
+  mutate(Black = factor(Black)) |>
+  mutate(Black = relevel(Black, ref="No"))
+levels(wages$Black)
+```
+
+Now lets see some summary statistics:
+
+```{r}
+# Obtaining summary statistics
+summary_stats <- wages |>
+  summarise(
+    Observations = n(),
+    Mean_Wage = mean(Wage),
+    SD_Wage = sd(Wage),
+    Mean_Education = mean(Education),
+    Mean_Experience = mean(Experience),
+  )
+
+# Create a table for the summary statistics
+summary_stats |>
+  kbl(caption = "Summary Statistics") |>
+  kable_classic()
+```
+
+The above table shows that the dataset consists of 25,631 male respondents from the March 1988 Current Population Survey. Summary statistics reveal that the average weekly wage was approximately \$640.16 (in 1992 dollars) with substantial variation (SD = \$444.28). The typical respondent had completed about 13 years of education and possessed nearly 19 years of work experience.
+
+Now Let's visualize the distribution of some key variables:
+
+```{r}
+# Figure 1: Distribution of Key Variables
+p1 <- ggplot(wages, aes(x = Wage)) +
+  geom_histogram(fill = "steelblue", alpha = 0.7, bins = 30) +
+  labs(title = "Distribution of Weekly Wages",
+       x = "Wage (1992 dollars)", y = "Frequency") +
+  theme_minimal()
+
+p2 <- ggplot(wages, aes(x = Education)) +
+  geom_histogram(fill = "darkgreen", alpha = 0.7, bins = 15) +
+  labs(title = "Distribution of Education Years",
+       x = "Years of Education", y = "Frequency") +
+  theme_minimal()
+
+p3 <- ggplot(wages, aes(x = Experience)) +
+  geom_histogram(fill = "darkorange", alpha = 0.7, bins = 30) +
+  labs(title = "Distribution of Experience Years",
+       x = "Years of Experience", y = "Frequency") +
+  theme_minimal()
+
+# Combine the distribution plots
+(p1 + labs(title = NULL)) / 
+(p2 + labs(title = NULL)) / 
+(p3 + labs(title = NULL)) +
+  plot_annotation(title = "Figure 1: Distribution of Key Variables")
+```
+
+Figure 1 displays the distributions of three key continuous variables:
+
+**Weekly Wages**: The wage distribution exhibits strong right-skewness, with most respondents earning below \$1,500 weekly but a long tail extending beyond \$2,000. This pattern is characteristic of income data and suggests logarithmic transformation may be appropriate for subsequent modeling.
+
+**Years of Education**: The education distribution shows a roughly normal shape centered around 13 years (approximately some college education), with modes at 12 years (high school completion) and 16 years (college degree).
+
+**Years of Experience**: Experience displays a right-skewed distribution, with most workers having between 5-30 years of experience and fewer individuals at the extreme ends of the career spectrum.
+
+# Assessing Conditions For MLR
+
+We first establish a multiple linear regression model, and use several plots to assess conditions.
+
+```{r}
+model_interaction <- lm(
+  Wage ~ Black * Region + Education + Experience,
+  data = wages
+)
+
+plot(model_interaction)
+```
+
+We can see that the residual plot shows that the variance is larger when the fitted value of y is larger, so the equal variance condition is not satisfied. In the Q-Q plot, the high end deviates significantly from the reference line. It means that the linear regression model that we constructed may not be a good choice, and we may consider the log transformation.
+
+# Modeling Process
+
+## Constructing and Fitting the Model
+
+We will construct a multiple linear regression model with the natural logarithm of weekly wage as the response variable and years of education, years of experience, race, metropolitan status, and geographic region as explanatory variables.
+
+```{r}
+# Construct a model with log-transformed response variable
+model_interaction_log <- lm(
+  log(Wage) ~ Black * Region + Education + Experience,
+  data = wages
+)
+```
+
+Let $\text{Wage}_i$ denote the wage of individual $i$. Our final log-linear regression model is:
+
+$$
+E[\log(\text{Wage}_i) \mid X_i] =
+\beta_0 + \beta_1 \text{Black}_i + \beta_2 \text{RegionNE}_i 
++ \beta_3 \text{RegionS}_i + \beta_4 \text{RegionW}_i
+$$
+
+$$
++ \beta_5 \text{Education}_i + \beta_6 \text{Experience}_i
++ \beta_7 (\text{Black}_i \times \text{RegionNE}_i)
++ \beta_8 (\text{Black}_i \times \text{RegionS}_i)
++ \beta_9 (\text{Black}_i \times \text{RegionW}_i).
+$$
+
+The coefficient $\beta_1$ represents the multiplicative effect of being Black on the median wage, holding all other variables fixed.\
+Interaction terms imply that the effect of being Black may differ across regions, with the multiplicative effect in region $k$ given by $\exp(\beta_1 + \beta_k)$, where $\beta_k$ is the corresponding interaction coefficient.
+
+The estimation of the parameters is shown below in the table.
+
+```{r}
+# Converting model output to a tidy dataframe
+interaction_lm_table <- model_interaction_log |>
+  broom::tidy()
+
+# Creating a nicely formatted regression table using kable
+interaction_lm_table |>
+  knitr::kable(
+    digits = 4
+  )
+```
+
+## Assessing Conditions For Log-transformed Model
+
+
+```{r}
+# Check condition for log-transformed model
+plot(model_interaction_log)
+```
+
+While the log-transformed model shows some improvement over the original scale model, it still exhibits some limitations. The residual plot reveals some heteroscedasticity, with variance first increases then decreases when the fitting value y is larger, and the Q-Q plot shows slight deviations from normality in the tails. However, these departures are less severe than in the original model, where clear heteroscedasticity and extreme non-normality violated core regression assumptions. Therefore, we will continue to use the log-transformed model in our study.
+
+## ANOVA and Results
+
+```{r}
+wages |>
+  ggplot(aes(x = Education, y = log(Wage), color = Black)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle("Education and log-transformed wages by race")
+```
+The graph above shows how Education and Wage relate with respect to race. The explanatory variable here is Education 
+
+```{r}
+# Tidy and format output
+model_interaction_log |>
+  tidy() |>
+  kable(digits = c(NA, 3, 3, 2, 4))
+
+# Test if pay gaps differ by region
+anova(model_interaction_log)
+```
+Looking at the ANOVA test we can see that each of th explanatory variables are statistically significant except for the interaction between if the person identified as Black and the region. Since the ANOVA showed there was no statistical relationship we now want to look at the actual wage difference for each reagion and race holding for education and experience.   
+```{r}
+# Predict wages for Black and non-Black workers in each region
+predict_df <- expand.grid(
+  Black = levels(wages$Black),
+  Region = levels(wages$Region),
+  Education = mean(wages$Education, na.rm = TRUE),
+  Experience = mean(wages$Experience, na.rm = TRUE)
+)
+
+predict_df$logWage <- predict(model_interaction_log, newdata = predict_df)
+predict_df$Wage <- exp(predict_df$logWage)
+
+# View region-specific wage estimates
+predict_df
+```
+
+
+```{r}
+ggplot(predict_df, aes(x = Region, y = Wage, fill = Black)) + 
+  geom_col(position = "dodge") +
+  labs(title = "Wage per Region Separated by Race") +
+  theme_minimal()
+```
+As shown in the figure above, people who identify as Black consistently have a lower wage than those who do not identify as Black. However there is not a statistically significant enough gap between the wages per region to say that the region someone is in has an effect on their wage. The data has backed up the fact that there is a wage gap but we cannot say that there is enough evidence based on our study that region affects wage for people who identify as Black. 
+
+
+## Summary 
+We fit a multiple linear regression model to predict the log of hourly wages using race, region, education, and experience, including an interaction between race and region to test the U.S. Census Bureau’s hypothesis that racial pay disparities vary geographically. The ANOVA results showed that the interaction term was not statistically significant (F = 1.45, p = 0.2264), indicating that the wage gap between Black and non-Black workers does not differ meaningfully across regions. Consequently, we simplified the model to include only main effects. All main predictors (race, region, education, and experience) were highly significant (p \< 0.001), with education and experience strongly associated with higher wages, and race (Black) associated with lower wages even after adjusting for other factors. Using the interaction model, we predicted wages for Black and non-Black workers in each region, holding education and experience constant, and found a consistent pay gap across regions, with Black workers earning less than their non-Black counterparts. These findings confirm that Black males were paid less than non-Black males in the same region with equivalent education and experience, and that this disparity is statistically significant and geographically consistent.

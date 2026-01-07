@@ -1,0 +1,122 @@
+---
+title: "Voter Mistakes Take Election"
+subtitle: "Case Study 1" 
+author:
+  - name: "Leah Levensailor"
+date: 2025-10-03
+format:
+  html:
+    embed-resources: true
+execute: 
+  echo: true
+  message: false
+  warning: false
+---
+
+## Introduction
+The US presidential election of 2000 has been brought to our attention because of how close the voter margin was. The votes were so close that Democratic nominee Al Gore had both conceded and taken back his concession all in one night. At the end of the day a recount was needed because of the close margin. While the recount was underway, the voters of Palm Beach County, Florida were upset about the confusing ballot operation this election. The ballot supposedly tripped people up thinking they were voting for Gore when they were actually voting for the reform candidate Pat Buchanan. 
+
+![](img/Butterfly_Ballot,_Florida_2000_(large).jpg)
+ 
+ The question we are trying to answer is is there sufficient evidence that people were voting for Buchanan thinking they were actually voting for Gore. This came up because of the unusually high number of votes Buchanan got in that specific county. Below shows the tests I've run to see if this claim is true. The data we have is a collection of the number of votes for Bush and Buchanan in all of the counties in Florida. 
+
+```{r message=FALSE}
+library(tidyverse)
+library(broom)
+# Reading in and saving the data
+election <- Sleuth2::ex0825
+
+# Creating a second dataset with Palm Beach County excluded
+election_wo_pb <- election |>
+  filter(County != "Palm Beach")
+```
+
+### Transforming the data
+
+The data in its original form is not linear and is clumped towards the bottom left corner. Because of this I performed a logarithmic transformation on the explanatory and reposne variables. This resulted in a drastically more linear scatterplot. 
+```{r}
+#transforming the data by logs 
+transformed_bush <- log(election_wo_pb$Bush2000)
+transformed_buc <- log(election_wo_pb$Buchanan2000)
+
+#mutating the data frame to include these new values 
+t_elections_wo_pb <- election_wo_pb |>
+  mutate(Bush2000 = transformed_bush) |>
+  mutate(Buchanan2000 = transformed_buc)
+```
+
+```{r}
+#plotting the newly transformed data
+t_elections_wo_pb |>
+  ggplot(aes(x = Bush2000, y = Buchanan2000)) +
+  geom_point(size = 2) +
+  scale_x_continuous(labels = scales::label_comma()) +
+  xlab("Number of Votes for Bush") +
+  ylab("Number of Votes for Buchanan") +
+  geom_smooth(method = "lm", se = FALSE, color = "blue")
+```
+
+### Residual plots and Conditions
+
+```{r}
+#creating the data for the residuals 
+mod_election <- lm(Buchanan2000 ~ Bush2000, data = t_elections_wo_pb)
+res_election <- resid(mod_election)
+plot(fitted(mod_election), res_election) 
+abline(0,0)
+```
+
+```{r}
+#residual plots 
+qqnorm(res_election)
+qqline(res_election)
+```
+
+Using the residual plots and scatter plots from above I can confirm that the Linear, Independent, Normal and Equal Variance conditions are sufficiently met. The model I have come up with is $$\log(\widehat{Buchanan}) = \beta_0 + \beta_1\log(Bush)$$ where log(Buchanan) is the natural logarithm of the number of votes for Buchanan in the individual county and log(Bush) is the natural logarithm of the number of votes for Bush in the individual county. $\beta_0$ in this context represents when Bush get's zero votes in a county, Buchanan is expected to get -2.341 votes. $\beta_1$ in this context represents a one vote increase in Bush votes leads to an expected 0.731 increase in Buchanan votes on average for each individual county. The equation I have come up to predict Buchanan votes from Bush votes is $$\log(\widehat{Buchanan}) = -2.341 + 0.731\log(Bush)$$
+
+### Prediction Interval
+
+The question is asking for a 95% prediction interval using the fitted model which is what I have done below. 
+
+```{r}
+#95% prediction interval 
+new_election <- data.frame(Bush2000 = 5.18425)
+
+prediction_intervals <- mod_election |>
+  augment(
+    newdata = new_election,
+    interval = "prediction",
+    conf.level = 0.95
+  )
+```
+
+Since I had to transform the data, the interval $(0.542, 2.35)$ is still in log form and we have to change it back to show the real interval.
+
+```{r}
+exp(0.542)
+exp(2.35)
+exp(5.18425)
+exp(-2.341 +(0.731*exp(5.18425)))
+
+```
+
+$$e^{0.542} = 1.72$$
+
+$$
+e^{2.35} = 10.48
+$$
+
+## Conclusion
+We are 95% confident that the number of votes for Buchanan in Palm Beach is within the interval 1.72 and 10.48 votes. In reality in Palm Beach, Buchanan got 3407 votes which tells us that approximately 3396 to 3405 of those votes were supposed to go to Gore according to our prediction interval. These findings are statistically significant and that we can reject the null hypothesis that there was no association with the type of ballot in Palm Beach County and the number of votes Buchanan got. The limitations on my conclusions are they only apply to Palm Beach County Florida and cannot be generalized to the rest of the country. We would have to complete this test with every state. The other part of it is these ballot complaints were just from that one specific county. It is unclear for the rest of the country what their ballots looked like and if each person voted for who they thought they were voting for. This test also cannot guarantee that Bush or Gore should have won, it was only to figure out if that ballot caused issues. We did find out that Buchanan received a significantly larger number of votes than he was supposed to since the number he got was not in the prediction interval. 
+
+```{r, echo= FALSE}
+
+
+# Representing the regression table as a dataframe (i.e., tidying the summary() output)
+mod_election_table <- mod_election |>
+  broom::tidy()
+
+# Creating a nicely formatted table from the dataframe using the kable package
+mod_election_table |>
+  knitr::kable()
+```

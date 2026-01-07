@@ -16,6 +16,12 @@ website:
               href: scorecard_analysis.qmd
             - text: "World Cube Association"
               href: WCA_analysis.qmd
+      - text: "Case Studies"
+        menu: 
+          - text: "Voter Mistakes"
+            href: CaseStudy1.qmd
+          - text: "Racial Inequality"
+            href: CaseStudy2.qmd
 format:
   html:
     theme: sandstone, _variables.scss
