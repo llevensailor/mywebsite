@@ -31,4 +31,6 @@ page-footer:
     left: "&copy; Copyright 2026, Leah Levensailor"
 
 editor: source
+toc: true
+toc-location: right 
 
