@@ -1,14 +1,12 @@
 ---
 title: "Leah Levensailor"
 about:
-  id: me
   template: trestles
   image: img/cover_picture copy.jpeg
 toc: true
 toc-location: right 
 ---
 
-:::{#me}
 ## Bio 
 I am currently studying at Smith College with a double major in [Computer Science](https://www.smith.edu/academics/computer-science) and [Statisical Data Science](https://www.smith.edu/academics/statistical-data-sciences). I have known for a long time I wanted to work in some sort of Computer Science field, using technology to enhance the human experience and help those who are underprivileged and overlooked. Whether that be working on technology for amputees or speech devices for children with developmental disabilities I have always wanted to make a difference using the skills I have. 
 
